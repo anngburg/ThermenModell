@@ -98,15 +98,22 @@ Thermen_data <- Thermen_data %>%
                     Therme_max = max(c_across(starts_with("Therme_")), na.rm = TRUE)) 
                   
 
-Thermen_data$prevSauna_max <- dplyr::lag(Thermen_data$Sauna_max, n = 1)
-Thermen_data$prevParkh_max <- dplyr::lag(Thermen_data$Parkhaus_max, n = 1)
-Thermen_data$prevTherme_max <- dplyr::lag(Thermen_data$Therme_max, n = 1)
+Thermen_data$prev1Sauna_max <- dplyr::lag(Thermen_data$Sauna_max, n = 1)
+Thermen_data$prev1Parkh_max <- dplyr::lag(Thermen_data$Parkhaus_max, n = 1)
+Thermen_data$prev1Therme_max <- dplyr::lag(Thermen_data$Therme_max, n = 1)
+Thermen_data$prev2Sauna_max <- dplyr::lag(Thermen_data$Sauna_max, n = 2)
+Thermen_data$prev2Parkh_max <- dplyr::lag(Thermen_data$Parkhaus_max, n = 2)
+Thermen_data$prev2Therme_max <- dplyr::lag(Thermen_data$Therme_max, n = 2)
+Thermen_data$prev3Sauna_max <- dplyr::lag(Thermen_data$Sauna_max, n = 3)
+Thermen_data$prev3Parkh_max <- dplyr::lag(Thermen_data$Parkhaus_max, n = 3)
+Thermen_data$prev3Therme_max <- dplyr::lag(Thermen_data$Therme_max, n = 3)
 
 Thermen_data$Weekday <- weekdays(Thermen_data$Date)
 
 #Modell bauen
-Thermen_Modell = lm(formula = Sauna_max ~ prevSauna_max + prevSauna_max + prevTherme_max + `Parkhaus_00:01` + `Parkhaus_02:03` + `Parkhaus_04:05` + `Parkhaus_06:07` + `Parkhaus_08:09` +
+Thermen_Modell_groß = lm(formula = Sauna_max ~ prev1Sauna_max + prev1Parkh_max + prev1Therme_max + prev2Sauna_max + prev2Parkh_max + prev2Therme_max + prev3Sauna_max + prev3Parkh_max + prev3Therme_max +
+                      `Parkhaus_00:01` + `Parkhaus_02:03` + `Parkhaus_04:05` + `Parkhaus_06:07` + `Parkhaus_08:09` +
                       `Parkhaus_10:11` + `Parkhaus_12:13` +`Sauna_08:09` + `Sauna_10:11` + `Sauna_12:13` + `Therme_08:09` + `Therme_10:11` + `Therme_12:13` +
                       Temp_high + Temp_mid + Temp_low + Sun + Rain + as.factor(Weekday), data = Thermen_data, na.action = na.exclude)
 
-summary(Thermen_Modell)
+summary(Thermen_Modell_groß)
