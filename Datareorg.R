@@ -72,9 +72,9 @@ ThermenAuslastung_data <- ThermenAuslastung_data %>%
   mutate(across(starts_with("Therme_"), as.numeric))
 
 #Wetterdaten hinzufügen    
-niederschlag <- read_csv("cnwppd9c.csv")
-temperatur <- read_csv("7h617c8y.csv")
-sonnenstunden <- read_csv("lgnx5i6x.csv")
+niederschlag <- read_csv("niederschlag.csv")
+temperatur <- read_csv("temperaturen.csv")
+sonnenstunden <- read_csv("sonnenschein.csv")
 
 wetter <- cbind(temperatur, niederschlag$'Niederschlag (6 bis 6 UTC)', sonnenstunden$Sonnenschein)
 
