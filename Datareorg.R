@@ -1,4 +1,4 @@
-install.packages("lubridate")
+#install.packages("lubridate")
 library(tidyverse)
 
 ThermenAuslastung_data <- read_csv("grafana_dashboard_data.csv")
